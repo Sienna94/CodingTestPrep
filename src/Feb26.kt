@@ -1,32 +1,30 @@
 import java.util.*
 
+//Happy Number
 class Solution {
-    fun solution(name: String): Int {
+    fun solution(n: Int): Int {
         var answer = 0
-        var alphabetArr = arrayOf<String>("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z")
-        var nameArr = ArrayList<String>()
+        var sum = 0
+        var tempNum = n
+        var hits = HashSet<Int>()
 
-        for(i in name.indices){
-            when(i){
-                name.length-1 -> nameArr[i] = name.substring(i)
-                else -> nameArr[i] = name.substring(i, i+1)
-            }
-        }
+        while(sum != 1){
+            sum= 0
 
-        nameArr.forEachIndexed{ i, str ->
-            if(str != "A" && i != nameArr.size-1){
-                alphabetArr.forEachIndexed{ j, alphabet ->
-                    if(alphabet == str) answer += j
-                }
-                answer 
-            }else if(str == "A" &&  i != nameArr.size-1){
-
-
+            while(tempNum != 0){
+                var temp = tempNum % 10
+                sum += temp * temp
+                tempNum = tempNum / 10
             }
 
+            if(hits.contains(sum)){
+                return - 1
+            }
 
+            hits.add(sum)
+            tempNum = sum
+            answer ++
         }
-
 
         return answer
     }
